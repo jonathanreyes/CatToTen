@@ -5,10 +5,11 @@ public class OffensivePhrase {
 	private String phrase;
 	private int offensiveness;
 
-	public OffensivePhrase() {
-		// TODO Auto-generated constructor stub
+	public OffensivePhrase(long l, String s, int i) {
+		this.id = l;
+		this.phrase = s;
+		this.offensiveness = i;
 	}
-	
 	
 	//Setters and getters
 	public long getId() {
