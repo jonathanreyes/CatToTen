@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="24dp"
+    android:paddingBottom="24dp"
+    android:paddingLeft="18dp"
+    android:paddingRight="18dp">
+    
+	<TextView
+	    android:id="@+id/list_word"
+	    android:layout_height="wrap_content"
+	    android:layout_width="wrap_content"
+	    android:textSize="@dimen/list_text_size"
+	    android:layout_alignParentLeft="true" />
+	<ImageView 
+	    android:id="@+id/list_anger"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:paddingTop="2dp"
+	    android:layout_toRightOf="@id/list_word"
+	    android:paddingLeft="8dp"/>
+	<ImageView
+	    android:id="@+id/list_delete"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentRight="true"
+	    android:src="@drawable/ic_trash"
+	    android:visibility="invisible"/>
+	<ImageView
+	    android:id="@+id/list_edit"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_toLeftOf="@id/list_delete"
+	    android:src="@drawable/ic_pencil"
+	    android:visibility="invisible"
+	    android:paddingRight="24dp"/>
+	
+
+</RelativeLayout>

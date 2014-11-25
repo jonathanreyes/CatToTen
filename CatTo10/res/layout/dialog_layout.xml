@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+    <TextView 
+        android:id="@+id/entry_title"
+        android:labelFor="@+id/entry_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/new_term"/>
+    <EditText 
+        android:id="@id/entry_text"
+        android:inputType="text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView 
+        android:id="@+id/anger_title"
+        android:labelFor="@+id/entry_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/anger_rating"/>
+    <RatingBar
+        android:id="@+id/anger_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:numStars="5"
+        android:stepSize="1.0"
+      	android:rating="3"
+        style="@style/AngerRatingBar"
+        android:layout_marginBottom="36dp"/>
+</LinearLayout>

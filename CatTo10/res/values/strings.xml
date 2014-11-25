@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">CatTo10</string>
+    <string name="app_name">Cat To Ten</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-
+    <string name="discard">Discard</string>
+    <string name="save">Save</string>
+    <string name="send">Send</string>
+	<string name="add_dialog">Add Entry</string>
+	<string name="new_term">New Term</string>
+	<string name="anger_rating">Anger Rating</string>
 </resources>
