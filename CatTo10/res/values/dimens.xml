@@ -6,4 +6,6 @@
     <dimen name="list_text_size">16sp</dimen>
     <dimen name="ic_flame_height">16dp</dimen>
 	<dimen name="ic_add_size">56dp</dimen>
+	<dimen name="border_margin">5dp</dimen>
+    <dimen name="zero_margin">0dp</dimen>
 </resources>

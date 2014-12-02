@@ -37,18 +37,21 @@ public class PhrasesDAO {
 	public OffensivePhrase addPhrase(String phrase, int offensiveness) {
 		//construct an entry to add
 		ContentValues cvToAdd = new ContentValues();
+		Log.v("PhrasesDAO", "adding content values");
 		cvToAdd.put(CatTo10SQLiteHelper.COLUMN_PHRASE, phrase);
 		cvToAdd.put(CatTo10SQLiteHelper.COLUMN_OFFENSIVENESS, offensiveness);
-		
+		Log.v("PhrasesDAO", "adding new entry in DB");
 		//add the new entry to tblPhrases
+		//TODO Getting an error here for insertion
 		long insertId = db.insert(CatTo10SQLiteHelper.TABLE_PHRASES, null, cvToAdd);
 		
+		Log.v("PhrasesDAO", "query the db");
 		//query the db to check that entry was done correctly
 		Cursor c = db.query(CatTo10SQLiteHelper.TABLE_PHRASES
 				, allColumns
 				, CatTo10SQLiteHelper.COLUMN_ID + "=" + insertId
 				, null, null, null, null);
-		
+		Log.v("PhrasesDAO", "return offensive phrase");
 		//return the offensive phrase added
 		c.moveToFirst();
 		OffensivePhrase op = cursorToOffensivePhrase(c);
