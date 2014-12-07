@@ -41,7 +41,6 @@ public class PicturePromptFragment extends DialogFragment {
 		// Set and change the size of the view
 		builder.setView(dialogView);
 		final AlertDialog dialog = builder.show();
-		dialog.getWindow().setLayout(550, 650);
 
 		//reset the static variables 
 		MainActivity.mNumAngryWords = 0;

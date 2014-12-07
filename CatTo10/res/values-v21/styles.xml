@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+      <style name="AppBaseTheme" parent="@android:style/Theme.Material.Light">
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
+        <item name="android:actionOverflowButtonStyle">@style/OverflowMenuButton</item>
+    </style>
+
+    <style name="AngerRatingBar" parent="@android:style/Widget.RatingBar">
+    	<item name="android:progressDrawable">@drawable/anger_bar_full</item>
+		<item name="android:minHeight">36dip</item>
+        <item name="android:maxHeight">36dip</item>
+    </style>
+    <style name="OverflowMenuButton" parent="android:style/Widget.Material.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_menu</item>
+    </style>
+</resources>

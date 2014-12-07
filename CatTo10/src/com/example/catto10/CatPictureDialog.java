@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -45,36 +46,37 @@ public class CatPictureDialog extends DialogFragment {
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 
 		// Use the Builder class for convenient dialog construction
-		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		LayoutInflater inflater = getActivity().getLayoutInflater();
 		View dialogView = inflater.inflate(R.layout.cat_pictures, null);
 
 		// Set and change the size of the view
-		builder.setView(dialogView);
+		builder.setView(dialogView)
+		.setTitle("Cat Picture " + mPicCounter  + " of 10")
+		.setPositiveButton(R.string.edit_message, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				EditMessageFragment test = new EditMessageFragment(mMessage, mPhoneNum);
+				test.show(getFragmentManager(), EditMessageFragment.CHOOSER_TEXT);
+
+				dialog.cancel();
+			}
+		}).setNegativeButton(R.string.next, null);
 		final AlertDialog dialog = builder.show();
-		dialog.getWindow().setLayout(550, 650);
-		
+
 		mTempRandNum = randomGenerator.nextInt(51) + 1;
 		new DownloadImageTask((ImageView) dialog.findViewById(R.id.cat_image))
         .execute(URL + mTempRandNum + ".jpg");
-		
-		TextView picCount = (TextView) dialog.findViewById(R.id.picture_count);
-		picCount.setText("Cat Picture " + mPicCounter  + " of 10");
 
-		// Define actions for buttons
-		mNext = (Button) dialogView.findViewById(R.id.next);
-		mNext.setOnClickListener(new OnClickListener() {
+		dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				 
-				
 				if (mPicCounter < 10){
 					mPicCounter++;
-					TextView picCount = (TextView) dialog.findViewById(R.id.picture_count);
-					picCount.setText("Cat Picture " + mPicCounter  + " of 10");
+					((Dialog) dialog).setTitle("Cat Picture " + mPicCounter  + " of 10");
 
 					mTempRandNum = randomGenerator.nextInt(51) + 1;
-					new DownloadImageTask((ImageView) dialog.findViewById(R.id.cat_image))
+					new DownloadImageTask((ImageView) ((Dialog) dialog).findViewById(R.id.cat_image))
 			        .execute(URL + mTempRandNum + ".jpg");
 
 				} else {
@@ -100,21 +102,10 @@ public class CatPictureDialog extends DialogFragment {
 					}
 					dialog.cancel();
 				}
-				
 			}
+			
 		});
-
-		mEdit = (Button) dialogView.findViewById(R.id.edit_message_cat_image);
-		mEdit.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				EditMessageFragment test = new EditMessageFragment(mMessage, mPhoneNum);
-				test.show(getFragmentManager(), EditMessageFragment.CHOOSER_TEXT);
-
-				
-				dialog.cancel();
-			}
-		});
+		
 		return dialog;
 	}
 	
