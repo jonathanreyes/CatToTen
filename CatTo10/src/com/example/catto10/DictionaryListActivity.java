@@ -44,16 +44,6 @@ public class DictionaryListActivity extends Activity implements EntryDialogFragm
 		// creates dividers between items
 		RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST);
 		recyclerList.addItemDecoration(itemDecoration);
-
-		// add button
-		ImageButton addButton = (ImageButton) findViewById(R.id.add_item);
-		addButton.setOnClickListener(new View.OnClickListener(){
-			@Override
-			public void onClick(View view) {
-				showEditDialog();
-			}
-
-		});
 	}
 	
 	// fires Dialog
