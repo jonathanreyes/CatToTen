@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -39,36 +40,20 @@ public class EditMessageFragment extends DialogFragment {
 		View dialogView = inflater.inflate(R.layout.edit_message, null);
 
 		// Set and change the size of the view
-		builder.setView(dialogView);
-		final AlertDialog dialog = builder.show();
-		dialog.getWindow().setLayout(550, 650);
-
-		// Set text message to send to user 
-		TextView mPhrasesFound = (TextView) dialog.findViewById(R.id.words_found);
-		String offensiveWords= ""; 
-		for(OffensivePhrase phrase: MainActivity.mAngryWordsFound){
-			offensiveWords += phrase.getPhrase() + " (Level " +phrase.getOffensiveness() + ")\n";
-		}
-		mPhrasesFound.setText(offensiveWords);
-
-		TextView messageContent = (TextView) dialog.findViewById(R.id.user_message_edit);
-		messageContent.setText(mMessage);
-
-		//reset the static variables 
-		MainActivity.mNumAngryWords = 0;
-		MainActivity.offensiveRating = 0;
-		MainActivity.mAngryWordsFound.clear();
-
-		// Define actions for buttons
-		mSend = (Button) dialogView.findViewById(R.id.send_message_two);
-		mSend.setOnClickListener(new OnClickListener() {
+		builder.setTitle(R.string.words_detected).setView(dialogView)
+		.setPositiveButton(R.string.discard, new DialogInterface.OnClickListener() {
 			@Override
-			public void onClick(View v) {
-
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.cancel();
+			}
+		})
+		.setNegativeButton(R.string.send, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
 				//TODO have to do another check to see if the new message has 
 				// any offensive content.  (method currently exists in Main Activity)
 
-				EditText mEditMessageView = (EditText) dialog.findViewById(R.id.user_message_edit);
+				EditText mEditMessageView = (EditText) ((Dialog)dialog).findViewById(R.id.user_message_edit);
 				String mEditMessage = mEditMessageView.getText().toString();
 
 				CheckMessageContent.checkMessageContent(mEditMessage);
@@ -95,16 +80,26 @@ public class EditMessageFragment extends DialogFragment {
 				dialog.cancel();
 			}
 		});
+		
+		final AlertDialog dialog = builder.show();
 
-		mDiscard = (Button) dialogView.findViewById(R.id.discard_message);
-		mDiscard.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				//TODO do we want to destroy the message in the textview of the sms app?
-				// how are we defining discard?
-				dialog.cancel();
-			}
-		});
+		// Set text message to send to user 
+		TextView mPhrasesFound = (TextView) dialog.findViewById(R.id.words_found);
+		String offensiveWords= ""; 
+		for(OffensivePhrase phrase: MainActivity.mAngryWordsFound){
+			offensiveWords += phrase.getPhrase() + " (Level " +phrase.getOffensiveness() + ")\n";
+		}
+		mPhrasesFound.setText(offensiveWords);
+
+		TextView messageContent = (TextView) dialog.findViewById(R.id.user_message_edit);
+		messageContent.setText(mMessage);
+
+		//reset the static variables 
+		MainActivity.mNumAngryWords = 0;
+		MainActivity.offensiveRating = 0;
+		MainActivity.mAngryWordsFound.clear();
+
+	
 		return dialog;
 	}
 }

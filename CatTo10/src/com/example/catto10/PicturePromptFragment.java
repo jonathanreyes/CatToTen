@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,8 +23,6 @@ public class PicturePromptFragment extends DialogFragment {
 
 	static final String CHOOSER_TEXT = "Load with:";
 
-	private Button mEdit;
-	private Button mSend;
 	String mMessage;
 	String mPhoneNum;
 
@@ -35,24 +34,22 @@ public class PicturePromptFragment extends DialogFragment {
 
 		// Use the Builder class for convenient dialog construction
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-		LayoutInflater inflater = getActivity().getLayoutInflater();
-		View dialogView = inflater.inflate(R.layout.picture_prompt, null);
 
 		// Set and change the size of the view
-		builder.setView(dialogView);
-		final AlertDialog dialog = builder.show();
-
-		//reset the static variables 
-		MainActivity.mNumAngryWords = 0;
-		MainActivity.offensiveRating = 0;
-		MainActivity.mAngryWordsFound.clear();
-
-		// Define actions for buttons
-		mSend = (Button) dialogView.findViewById(R.id.send_cats);
-		mSend.setOnClickListener(new OnClickListener() {
+		builder.setTitle(R.string.angry_words)
+		.setMessage(R.string.send_message_unedited)
+		.setPositiveButton(R.string.edit_message, new DialogInterface.OnClickListener(){
 			@Override
-			public void onClick(View v) {
+			public void onClick(DialogInterface dialog, int which) {
+				EditMessageFragment test = new EditMessageFragment(mMessage, mPhoneNum);
+				test.show(getFragmentManager(), EditMessageFragment.CHOOSER_TEXT);
 
+				dialog.cancel();
+			}
+		})
+		.setNegativeButton(R.string.proceed, new DialogInterface.OnClickListener(){
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
 				//Create the dialog boxes with cat images
 				CatPictureDialog cats = new CatPictureDialog(mMessage, mPhoneNum);
 				cats.show(getFragmentManager(), CatPictureDialog.CHOOSER_TEXT);
@@ -60,17 +57,13 @@ public class PicturePromptFragment extends DialogFragment {
 				dialog.cancel();
 			}
 		});
+		final AlertDialog dialog = builder.show();
 
-		mEdit = (Button) dialogView.findViewById(R.id.edit_message_cats);
-		mEdit.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				EditMessageFragment test = new EditMessageFragment(mMessage, mPhoneNum);
-				test.show(getFragmentManager(), EditMessageFragment.CHOOSER_TEXT);
+		//reset the static variables 
+		MainActivity.mNumAngryWords = 0;
+		MainActivity.offensiveRating = 0;
+		MainActivity.mAngryWordsFound.clear();
 
-				dialog.cancel();
-			}
-		});
 		return dialog;
 	}
 }

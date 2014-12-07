@@ -22,8 +22,6 @@ public class DictionaryListActivity extends Activity implements EntryDialogFragm
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.dictionary_main);
-		getActionBar().setLogo(R.drawable.logo);
-		getActionBar().setDisplayShowTitleEnabled(false);
 
 		recyclerList = (RecyclerView) findViewById(R.id.list);
 		recyclerList.setHasFixedSize(true);

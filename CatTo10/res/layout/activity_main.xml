@@ -1,47 +1,56 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <!--
           <TextView
         android:id="@+id/textViewPhoneNo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/phone_label" /> -->
+        android:text="@string/phone_label" />
+    -->
 
     <EditText
         android:id="@+id/editTextPhoneNo"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="5dp"
         android:hint="@string/to"
-        android:inputType="phone" />
+        android:inputType="phone"
+        android:layout_margin="16dp" 
+        android:background="@null" />
+
+    <View 
+        style="@style/Divider"
+    	android:layout_below="@id/editTextPhoneNo"/>
 
     <!--
           <TextView
         android:id="@+id/textViewMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/sms_label" /> -->
+        android:text="@string/sms_label" />
+    -->
 
     <EditText
         android:id="@+id/editTextSMS"
-        android:layout_width="300dp"
+        android:layout_width="275dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/editTextPhoneNo"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="16dp"
         android:hint="@string/type_message"
-        android:inputType="textMultiLine" />
+        android:inputType="textMultiLine" 
+        android:layout_marginLeft="16dp"
+                android:background="@null"/>
 
     <ImageButton
         android:id="@+id/btnSendSMS"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/editTextPhoneNo"
-        android:layout_marginLeft="14dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
         android:layout_toRightOf="@+id/editTextSMS"
         android:background="@android:color/transparent"
         android:src="@drawable/send_button" />
@@ -53,6 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/editTextSMS"
         android:layout_below="@+id/editTextPhoneNo"
-        android:text="@string/send_sms_label" /> -->
+        android:text="@string/send_sms_label" />
+    -->
 
 </RelativeLayout>

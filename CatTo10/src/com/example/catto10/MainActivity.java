@@ -34,9 +34,6 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
-		getActionBar().setLogo(R.drawable.logo);
-		getActionBar().setDisplayShowTitleEnabled(false);
 		
 		sendBtn = (ImageButton) findViewById(R.id.btnSendSMS);
 		//sendBtn.setBackgroundColor(color);
