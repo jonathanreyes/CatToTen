@@ -7,6 +7,7 @@
     <string name="discard">Discard</string>
     <string name="save">Save</string>
     <string name="send">Send</string>
+    <string name="add_item">Add Item</string>
 	<string name="add_dialog">Add Entry</string>
 	<string name="new_term">New Term</string>
 	<string name="anger_rating">Anger Rating</string>
@@ -15,8 +16,19 @@
     <string name="send_sms_label">Send SMS</string>
 	<string name="your_message">Your message</string>
 	<string name="words_detected">We\'ve detected the following angry words:</string>
+    <string name="send_anyways">Send anyway</string>
     <string name="proceed">Proceed</string>
-    <string name="edit_message">Edit Message</string>
-     <string name="dictionary">Dictionary</string>
-    
+    <string name="next">Next</string>
+    <string name="edit_message">Edit message</string>
+    <string name="to">To</string>
+        <string name="type_message">Type message</string>
+    <string name="dictionary">Dictionary</string>
+    <string name="angry_words"><b>Angry Words Detected!</b></string>
+ 	<string name="send_message_unedited">You have chosen to send anyway. 
+ 	    			As a precaution, we must show you cat pictures and ask you to review 
+ 	    			your message again. To bypass, please edit your message now.</string> 
+ 	    			
+ 	<color name ="white">#FFFFFF</color>
+ 	<color name ="gray">#B8B8B8</color>
+ 	    			
 </resources>

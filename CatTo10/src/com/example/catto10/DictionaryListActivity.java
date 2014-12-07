@@ -1,12 +1,6 @@
 package com.example.catto10;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,23 +13,33 @@ import android.widget.Toast;
 
 public class DictionaryListActivity extends Activity implements EntryDialogFragment.EditDialogListener {
 	
+	private RecyclerView recyclerList;
+	private LinearLayoutManager linearLayoutManager;
 	private DictionaryListAdapter mAdapter;
+	private PhrasesDAO datasource;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.dictionary_main);
+		getActionBar().setLogo(R.drawable.logo);
+		getActionBar().setDisplayShowTitleEnabled(false);
 
-		RecyclerView recyclerList = (RecyclerView) findViewById(R.id.list);
+		recyclerList = (RecyclerView) findViewById(R.id.list);
 		recyclerList.setHasFixedSize(true);
 
-		LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+		linearLayoutManager = new LinearLayoutManager(this);
 		linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 		linearLayoutManager.scrollToPosition(0);
 		recyclerList.setLayoutManager(linearLayoutManager);
 
-		mAdapter = new DictionaryListAdapter(this);
+		datasource = new PhrasesDAO(this);
+		datasource.open();
+
+		mAdapter = new DictionaryListAdapter(this, datasource.getAllPhrases());
 		recyclerList.setAdapter(mAdapter);
+
+		datasource.close();
 
 		// creates dividers between items
 		RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST);
@@ -50,8 +54,6 @@ public class DictionaryListActivity extends Activity implements EntryDialogFragm
 			}
 
 		});
-		
-		createList(30);
 	}
 	
 	// fires Dialog
@@ -62,8 +64,8 @@ public class DictionaryListActivity extends Activity implements EntryDialogFragm
 	}
 	
 	// after Dialog
-	public void onFinishEditDialog(String word, int level){
-		int status = mAdapter.add(word, level, mAdapter.getItemCount());
+	public void onFinishEditDialog(String phrase, int offensiveness){
+		int status = mAdapter.add(phrase, offensiveness);
 		if (status == 1){
 			Toast.makeText(this, "Entry successfully added!", Toast.LENGTH_SHORT).show();
 		} else if (status == 2){
@@ -84,22 +86,13 @@ public class DictionaryListActivity extends Activity implements EntryDialogFragm
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.action_settings) {
+		switch (id) {
+		case R.id.action_settings:
+			return true;
+		case R.id.add_item:
+			showEditDialog();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
-	}
-
-	private void createList(int size){
-		String abc = "abcdefghijklmnopqrstuvwxyz";
-		Random r = new Random();
-
-		for(int i = 0; i < size; i++){
-			int start = r.nextInt(20);
-			int length = r.nextInt(5) + 1;
-			int flame = r.nextInt(5) + 1;
-
-			mAdapter.add(abc.substring(start, start+length), flame, mAdapter.getItemCount());
-		}
 	}
 }

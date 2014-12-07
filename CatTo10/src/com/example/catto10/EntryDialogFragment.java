@@ -14,7 +14,7 @@ import android.widget.TextView;
 public class EntryDialogFragment extends DialogFragment {
 
 	public static interface EditDialogListener {
-		public abstract void onFinishEditDialog(String word, int level);
+		public abstract void onFinishEditDialog(String phrase, int offensiveness);
 	}
 	
 	private EditDialogListener mListener;
@@ -32,13 +32,13 @@ public class EntryDialogFragment extends DialogFragment {
 		return newFragment; 
 	}
 	
-	public static EntryDialogFragment newInstance(String word, int level, String title) {
+	public static EntryDialogFragment newInstance(String phrase, int offensiveness, String title) {
 		EntryDialogFragment newFragment = new EntryDialogFragment();
 		
 		Bundle args = new Bundle();
-		args.putString("word", word);
+		args.putString("phrase", phrase);
 		args.putString("title", title);
-		args.putInt("level", level);
+		args.putInt("offensiveness", offensiveness);
 		newFragment.setArguments(args);
 		
 		return newFragment; 
@@ -58,8 +58,8 @@ public class EntryDialogFragment extends DialogFragment {
 		mAngerText = (TextView) view.findViewById(R.id.anger_title);
 		
 		if(getArguments().size() > 1){
-			mEditText.setText(getArguments().getString("word"));
-			mRatingBar.setProgress(getArguments().getInt("level"));
+			mEditText.setText(getArguments().getString("phrase"));
+			mRatingBar.setProgress(getArguments().getInt("offensiveness"));
 		}
 		
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

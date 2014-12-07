@@ -4,11 +4,13 @@ public class OffensivePhrase {
 	private long id;
 	private String phrase;
 	private int offensiveness;
+	private String icon;
 
-	public OffensivePhrase(long l, String s, int i) {
+	public OffensivePhrase(long l, String s, int i, String c) {
 		this.id = l;
 		this.phrase = s;
 		this.offensiveness = i;
+		this.icon = c;
 	}
 	
 	//Setters and getters
@@ -36,14 +38,37 @@ public class OffensivePhrase {
 		this.offensiveness = o;
 	}
 	
+	public String getIcon(){
+		return this.icon;
+	}
+	
+	public void setIcon(String icon){
+		this.icon = icon;
+	}
+
+	@Override
+	public boolean equals(Object secPhrase){
+		if(this == secPhrase) return true;
+		if(secPhrase != null && secPhrase instanceof OffensivePhrase){
+			return this.phrase.equals(((OffensivePhrase) secPhrase).getPhrase());
+		}
+		
+		return false;
+	}
+	
+	@Override
+	public int hashCode(){
+		return Long.valueOf(phrase.hashCode() * 31 + offensiveness * 31).hashCode();
+	}
+
 	//string representation
 	public String toString() {
-		return "\"" + this.phrase + "\": " + this.offensiveness; 
+		return "\"" + this.phrase + "\": " + this.offensiveness + "\": " + this.icon; 
 	}
 	
 	//string for outputting contents to log
 	public String toLog() {
-		return this.id + "; \"" + this.phrase + "\"; " + this.offensiveness;
+		return this.id + "; \"" + this.phrase + "\"; " + this.offensiveness + "\": " + this.icon;
 	}
 
 }

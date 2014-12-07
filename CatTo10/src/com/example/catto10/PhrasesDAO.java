@@ -17,7 +17,8 @@ public class PhrasesDAO {
 	private CatTo10SQLiteHelper dbHelper;
 	private String[] allColumns = { CatTo10SQLiteHelper.COLUMN_ID
 			, CatTo10SQLiteHelper.COLUMN_PHRASE
-			, CatTo10SQLiteHelper.COLUMN_OFFENSIVENESS};
+			, CatTo10SQLiteHelper.COLUMN_OFFENSIVENESS
+			, CatTo10SQLiteHelper.COLUMN_ICON };
 
 	public PhrasesDAO(Context c) {
 		dbHelper = new CatTo10SQLiteHelper(c);
@@ -34,12 +35,13 @@ public class PhrasesDAO {
 	}
 	
 	//add an offensive phrase to tblPhrses in offensive_phrases.db
-	public OffensivePhrase addPhrase(String phrase, int offensiveness) {
+	public OffensivePhrase addPhrase(String phrase, int offensiveness, String icon) {
 		//construct an entry to add
 		ContentValues cvToAdd = new ContentValues();
 		Log.v("PhrasesDAO", "adding content values");
 		cvToAdd.put(CatTo10SQLiteHelper.COLUMN_PHRASE, phrase);
 		cvToAdd.put(CatTo10SQLiteHelper.COLUMN_OFFENSIVENESS, offensiveness);
+		cvToAdd.put(CatTo10SQLiteHelper.COLUMN_ICON, icon);
 		Log.v("PhrasesDAO", "adding new entry in DB");
 		//add the new entry to tblPhrases
 		//TODO Getting an error here for insertion
@@ -59,6 +61,19 @@ public class PhrasesDAO {
 		return op;
 	}
 	
+	public boolean contains(String phrase){
+		Log.i(TAG, "Checking if DB contains " + phrase);
+		Cursor c = db.rawQuery("SELECT * FROM " + CatTo10SQLiteHelper.TABLE_PHRASES + " WHERE " + CatTo10SQLiteHelper.COLUMN_PHRASE + "=?", new String[]{phrase});
+		return c != null;
+	}
+
+	// clears entire table
+	public void deleteAll() throws SQLException{
+		Log.i(TAG, "Clearing table");
+		 db.delete(CatTo10SQLiteHelper.TABLE_PHRASES, null, null);
+	}
+	
+
 	public void deletePhrase(OffensivePhrase op) {
 		//get Id out of op
 		long deleteId = op.getId();
@@ -69,7 +84,19 @@ public class PhrasesDAO {
 				, CatTo10SQLiteHelper.COLUMN_ID + " = " + deleteId
 		        , null);
 	}
-	
+
+	public void editPhrase(String phrase, int offensiveness, String icon, long id){
+		Log.v(TAG, "edit content values");
+		ContentValues cvToEdit = new ContentValues();
+		
+		cvToEdit.put(CatTo10SQLiteHelper.COLUMN_PHRASE, phrase);
+		cvToEdit.put(CatTo10SQLiteHelper.COLUMN_OFFENSIVENESS, offensiveness);
+		cvToEdit.put(CatTo10SQLiteHelper.COLUMN_ICON, icon);
+
+		Log.v(TAG, "editing entry in DB");
+		db.update(CatTo10SQLiteHelper.TABLE_PHRASES, cvToEdit, CatTo10SQLiteHelper.COLUMN_ID + "=" + id, null);
+	}
+
 	public List<OffensivePhrase> getAllPhrases() {
 		//create return object
 		List<OffensivePhrase> allPhrases = new ArrayList<OffensivePhrase>();
@@ -96,7 +123,7 @@ public class PhrasesDAO {
 	}
 	
 	private OffensivePhrase cursorToOffensivePhrase(Cursor c) {
-		return new OffensivePhrase(c.getLong(0), c.getString(1), c.getInt(2));
+		return new OffensivePhrase(c.getLong(0), c.getString(1), c.getInt(2), c.getString(3));
 	}
 
 }

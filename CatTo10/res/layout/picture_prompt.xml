@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    
+    <TextView
+        android:text="@string/angry_words"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="8dp"
+        android:textSize="16sp" >
+    </TextView>
+    
+    <TextView
+        android:id="@+id/send_message_as_is"
+        android:text="@string/send_message_unedited"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="23dp"
+        android:layout_marginTop="8dp"
+        android:textSize="14sp" >
+    </TextView>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/send_cats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="40dp"
+            android:layout_marginRight="20dp"
+            android:text="@string/proceed"
+            android:textSize="14sp"
+            android:textAllCaps="true"
+            android:background="@android:color/transparent" >
+        </Button>
+        
+          <Button
+            android:id="@+id/edit_message_cats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/send_cats"
+            android:layout_marginRight="20dp"
+            android:text="@string/edit_message"
+            android:textSize="14sp"
+            android:layout_alignParentRight="true"
+            android:textAllCaps="true"
+            android:textColor="@color/gray"
+            android:background="@android:color/transparent" >
+        </Button>
+
+	</RelativeLayout>
+
+</LinearLayout>
