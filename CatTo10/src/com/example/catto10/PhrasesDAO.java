@@ -102,16 +102,17 @@ public class PhrasesDAO {
 		List<OffensivePhrase> allPhrases = new ArrayList<OffensivePhrase>();
 		
 		//select all from tblPhrases
+		Log.v("PhraseDAO" ,"using db");
 		Cursor c = db.query(CatTo10SQLiteHelper.TABLE_PHRASES
 				,allColumns
 				, null, null, null, null, null);
-		
+		Log.v("PhraseDAO" ,"getting cursor set up");
 		//iterate over all query results
 		c.moveToFirst();
 		while(!c.isAfterLast()) {
 			//turn each result into an OffensivePhrase
 			OffensivePhrase op = cursorToOffensivePhrase(c);
-			
+			Log.v("PhraseDAO" ,"adding entries");
 			//add the OffensivePhrase to allPhrases and move to the next result
 			allPhrases.add(op);
 			c.moveToNext();

@@ -8,11 +8,15 @@
     <style name="AppBaseTheme" parent="android:Theme.Holo.Light.DarkActionBar">
         <item name="android:actionBarStyle">@style/MyActionBar</item>
         <item name="android:actionOverflowButtonStyle">@style/OverflowMenuButton</item>
+        <item name="md_accent_color">@color/green</item>
     </style>
 
     <style name="MyActionBar" parent="android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
         <item name="android:height">56dp</item>
-        <item name="android:displayOptions">showHome|useLogo</item>
+        <item name="android:displayOptions">showHome|showTitle</item>
+        <item name="android:icon">@android:color/transparent</item>
+        <item name="android:background">@color/green</item>
+        <item name="android:homeAsUpIndicator">@drawable/ic_arrow_white</item>
     </style>
 
     <style name="AngerRatingBar" parent="@android:style/Widget.RatingBar">

@@ -2,11 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical" 
-    android:paddingLeft="24dp"
-    android:paddingRight="24dp"
-    android:paddingTop="16dp"
-    android:paddingBottom="16dp">
+    android:orientation="vertical">
     <TextView 
         android:id="@+id/entry_title"
         android:labelFor="@+id/entry_text"

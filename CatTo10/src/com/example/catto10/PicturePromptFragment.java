@@ -1,25 +1,14 @@
 package com.example.catto10;
 
-import android.app.Activity;
+import com.afollestad.materialdialogs.MaterialDialog;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class PicturePromptFragment extends DialogFragment {
-
-	static private final int GET_TEXT_REQUEST_CODE = 1;
 
 	static final String CHOOSER_TEXT = "Load with:";
 
@@ -33,36 +22,26 @@ public class PicturePromptFragment extends DialogFragment {
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 
 		// Use the Builder class for convenient dialog construction
-		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		MaterialDialog.Builder builder = new MaterialDialog.Builder(getActivity());
 
-		// Set and change the size of the view
-		builder.setTitle(R.string.angry_words)
-		.setMessage(R.string.send_message_unedited)
-		.setPositiveButton(R.string.edit_message, new DialogInterface.OnClickListener(){
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				EditMessageFragment test = new EditMessageFragment(mMessage, mPhoneNum);
-				test.show(getFragmentManager(), EditMessageFragment.CHOOSER_TEXT);
+		builder.title(R.string.angry_words)
+				.content(R.string.send_message_unedited)
+				.positiveText(R.string.edit_message)
+				.negativeText(R.string.proceed)
+				.callback(new MaterialDialog.Callback() {
+					@Override
+					public void onPositive(MaterialDialog dialog) {
+						EditMessageFragment test = new EditMessageFragment(mMessage, mPhoneNum);
+						test.show(getFragmentManager(), EditMessageFragment.CHOOSER_TEXT);
+					}
 
-				dialog.cancel();
-			}
-		})
-		.setNegativeButton(R.string.proceed, new DialogInterface.OnClickListener(){
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				//Create the dialog boxes with cat images
-				CatPictureDialog cats = new CatPictureDialog(mMessage, mPhoneNum);
-				cats.show(getFragmentManager(), CatPictureDialog.CHOOSER_TEXT);
-				
-				dialog.cancel();
-			}
-		});
-		final AlertDialog dialog = builder.show();
-
-		//reset the static variables 
-		MainActivity.mNumAngryWords = 0;
-		MainActivity.offensiveRating = 0;
-		MainActivity.mAngryWordsFound.clear();
+					@Override
+					public void onNegative(MaterialDialog dialog) {
+						CatPictureDialog cats = new CatPictureDialog(mMessage, mPhoneNum);
+						cats.show(getFragmentManager(), CatPictureDialog.CHOOSER_TEXT);
+					}
+				});
+		final MaterialDialog dialog = builder.show();
 
 		return dialog;
 	}

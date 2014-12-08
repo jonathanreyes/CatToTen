@@ -1,6 +1,8 @@
 package com.example.catto10;
 
+import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
 
 public class DictionaryListActivity extends Activity implements EntryDialogFragment.EditDialogListener {
 	
@@ -22,6 +23,8 @@ public class DictionaryListActivity extends Activity implements EntryDialogFragm
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.dictionary_main);
+		getActionBar().show();
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 
 		recyclerList = (RecyclerView) findViewById(R.id.list);
 		recyclerList.setHasFixedSize(true);
@@ -75,12 +78,11 @@ public class DictionaryListActivity extends Activity implements EntryDialogFragm
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		switch (id) {
-		case R.id.action_settings:
-			return true;
 		case R.id.add_item:
 			showEditDialog();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
 }

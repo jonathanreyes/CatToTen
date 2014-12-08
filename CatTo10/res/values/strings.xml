@@ -2,6 +2,7 @@
 <resources>
 
     <string name="app_name">Cat To Ten</string>
+    <string name="sms_title">Cat to Ten SMS</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="discard">Discard</string>
@@ -27,8 +28,5 @@
  	<string name="send_message_unedited">You have chosen to send anyway. 
  	    			As a precaution, we must show you cat pictures and ask you to review 
  	    			your message again. To bypass, please edit your message now.</string> 
- 	    			
- 	<color name ="white">#FFFFFF</color>
- 	<color name ="gray">#B8B8B8</color>
  	    			
 </resources>

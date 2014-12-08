@@ -1,5 +1,7 @@
 package com.example.catto10;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -19,7 +21,6 @@ public class EntryDialogFragment extends DialogFragment {
 	
 	private EditDialogListener mListener;
 	private EditText mEditText;
-	private TextView mEntryText, mAngerText;
 	private RatingBar mRatingBar;
 
 	public static EntryDialogFragment newInstance(String title) {
@@ -49,35 +50,31 @@ public class EntryDialogFragment extends DialogFragment {
 	}
 	
 	public Dialog onCreateDialog(Bundle savedInstanceState){
-		LayoutInflater inflater = getActivity().getLayoutInflater();
-		View view = inflater.inflate(R.layout.dialog_layout, null);
+		MaterialDialog.Builder builder = new MaterialDialog.Builder(getActivity());
+		
+		builder.title(getArguments().getString("title"))
+				.customView(R.layout.dialog_layout)
+				.positiveText(R.string.save)
+				.negativeText(R.string.discard)
+				.callback(new MaterialDialog.SimpleCallback() {
+					@Override
+					public void onPositive(MaterialDialog dialog) {	
+						mListener.onFinishEditDialog(mEditText.getText().toString(), (int) mRatingBar.getProgress());
+					}
+				});
+		
+		MaterialDialog dialog = builder.show();
+		View view = dialog.getCustomView();
 		
 		mRatingBar = (RatingBar) view.findViewById(R.id.anger_bar);
 		mEditText = (EditText) view.findViewById(R.id.entry_text);
-		mEntryText = (TextView) view.findViewById(R.id.entry_title);
-		mAngerText = (TextView) view.findViewById(R.id.anger_title);
 		
 		if(getArguments().size() > 1){
 			mEditText.setText(getArguments().getString("phrase"));
 			mRatingBar.setProgress(getArguments().getInt("offensiveness"));
-		}
+		}		
 		
-		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-		
-		builder.setView(view)
-		.setTitle(getArguments().getString("title"))
-		.setPositiveButton(R.string.save, new DialogInterface.OnClickListener(){
-			public void onClick(DialogInterface dialog, int id) {
-				mListener.onFinishEditDialog(mEditText.getText().toString(), (int) mRatingBar.getProgress());
-			}
-		})
-		.setNegativeButton(R.string.discard, new DialogInterface.OnClickListener(){
-			public void onClick(DialogInterface dialog, int id) {
-				dialog.dismiss();
-			}
-		});
-		
-		return builder.create();
+		return dialog;
 	}
 
 }
